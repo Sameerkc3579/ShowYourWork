@@ -1,0 +1,24 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+.env
+
+# Application Data & Secrets
+*.pem
+*.db
+*.sig
+notes.json
+document.md
+*.log
+session_log.jsonl
+demo/demo_ledger.db
+demo/demo_ledger.sig
+demo/session_log.jsonl
+demo/demo_keys/
