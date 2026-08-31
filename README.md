@@ -6,6 +6,11 @@ AI-text detectors (Turnitin, GPTZero) are statistically unreliable and documente
 
 This project builds that fix as a working MCP gateway.
 
+<div align="center">
+  <img src="demo_clip.gif" alt="ShowYourWork Tamper-Catch Demo" width="800">
+  <p><em>Independent verification catching a tampered SQLite ledger row</em></p>
+</div>
+
 ---
 
 ## How It Works
