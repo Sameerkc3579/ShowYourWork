@@ -185,6 +185,34 @@ uv run pytest tests/ -v
 
 ---
 
+## Verified Tamper Resistance
+
+A raw SQLite UPDATE was used to simulate an attacker bypassing the app entirely and directly editing one ledger row's content_diff field, to prove the hash chain and signature actually catch tampering rather than just claiming to.
+
+### Test 1: Direct row tampering
+
+```text
+❌ Chain verification: Entry #3 has been tampered with: stored entry_hash '201beda192a66ddd…' ≠ computed '55531cc758e300ef…'.
+❌ Signature verification: ❌ Signature INVALID — the ledger may have been altered or signed with a different key.
+❌ FAIL — verification failed (see details above).
+```
+
+The tamper was caught because entry_hash is bound to the actual row content, not just to the chain links, and both checks failed for independently correct reasons (local hash mismatch vs. final-state mismatch).
+
+### Test 2: Wrong public key (untampered ledger)
+
+```text
+✅ Chain verification: Hash chain OK — all 7 entries verified.
+❌ Signature verification: ❌ Signature INVALID — the ledger may have been altered or signed with a different key.
+❌ FAIL — verification failed (see details above).
+```
+
+This proves the chain check and signature check are independent — chain correctly reports OK since the data wasn't altered, signature correctly reports INVALID due to the wrong key, ruling out the two checks being secretly coupled.
+
+Both tests are reproducible via `uv run python main.py demo`, then tampering with the resulting demo_ledger.db directly via sqlite3, then re-running `uv run python main.py verify` against it.
+
+---
+
 ## Risks & Limitations (MVP)
 
 | Risk | Status |

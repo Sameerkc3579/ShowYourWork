@@ -225,15 +225,23 @@ def generate_markdown_report(
         log_e = log_by_seq.get(seq)
 
         lines += [
-            f"### {_icon(tool)} Step {seq} — `{tool}`",
+            f"### {_icon(tool)} Step {seq} — {tool.replace('_', ' ').title()}",
             "",
             f"- **Time:** {ts}",
             f"- **Actor:** {_actor_badge(actor)}",
-            f"- **Entry hash:** `{ehash}`",
         ]
 
         # Enrich with session log data (actual inputs/outputs)
         lines.extend(_annotate_entry(entry, log_e))
+
+        lines += [
+            "",
+            "<details>",
+            "<summary>🔍 Cryptographic Proof (Click to expand)</summary>",
+            "",
+            f"- **Entry hash:** `{ehash}`",
+            "</details>",
+        ]
 
         if diff:
             lines += [
