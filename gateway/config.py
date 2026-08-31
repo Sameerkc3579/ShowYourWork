@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import os
 import tomllib
+import uuid
 from dataclasses import dataclass, field
 from pathlib import Path
 
@@ -30,7 +31,7 @@ class GatewayConfig:
     ledger_path: Path = Path("ledger.db")
     private_key_path: Path = Path("private_key.pem")
     public_key_path: Path = Path("public_key.pem")
-    session_id: str = "default"
+    session_id: str = field(default_factory=lambda: str(uuid.uuid4()))
     servers: list[ServerConfig] = field(default_factory=list)
 
     # Gateway's own stdio transport name shown to the client

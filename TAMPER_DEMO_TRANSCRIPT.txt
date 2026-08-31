@@ -1,0 +1,293 @@
+=== TAMPER CATCH DEMO TRANSCRIPT ===
+
+$ uv run python main.py demo
+🧹 Cleaning previous demo state...
+🔑 Generating fresh Ed25519 keypair for demo...
+
+🚀 Starting demo session: 0b814e6b-46f2-4cf9-bf97-23cda9f93e19
+
+[agent] Calling web_search...
+
+[agent] Calling add_note...
+
+[agent] Calling web_search...
+
+[user] Calling add_note...
+
+[agent] Calling append_to_document...
+
+[agent] Calling append_to_document...
+
+[user] Calling replace_section...
+
+✍️ Session complete. Signing ledger...
+✅ Signed! Signature saved to: demo_ledger.sig
+
+📄 Generating provenance report...
+✅ Report saved to: C:\Users\sameer choudhary\OneDrive\Desktop\ShowYourWork\demo\demo_report.md
+
+🔍 Running standalone verifier...
+============================================================
+  ProcessLedger — Standalone Chain Verifier
+============================================================
+
+Ledger:     C:\Users\sameer choudhary\OneDrive\Desktop\ShowYourWork\demo\demo_ledger.db
+Public key: C:\Users\sameer choudhary\OneDrive\Desktop\ShowYourWork\demo\demo_keys\public_key.pem
+Signature:  C:\Users\sameer choudhary\OneDrive\Desktop\ShowYourWork\demo\demo_ledger.sig
+
+Loading ledger...
+  7 entries found.
+
+--- Hash Chain Verification ---
+✅  Hash chain OK — all 7 entries verified.
+
+--- Signature Verification ---
+✅  Signature OK — ledger authenticity confirmed.
+
+============================================================
+✅  PASS — ledger is intact and authentic.
+============================================================
+
+🎉 Demo completed successfully!
++--------------------------------------------------------------------------+
+| ShowYourWork — MCP Proof of Process                                      |
+| Tamper-evident, cryptographically signed provenance for AI-assisted work |
++--------------------------------------------------------------------------+
+Running end-to-end demo script...
+
+
+
+
++-----------------------------------------------------------------------------+
+|                                                                             |
+|                                                                             |
+|                        \u2584\u2580\u2580 \u2584\u2580\u2588 \u2588\u2580\u2580 \u2580\u2588\u2580 \u2588\u2580\u2584\u2580\u2588 \u2588\u2580\u2580 \u2588\u2580\u2588                        |
+|                        \u2588\u2580  \u2588\u2580\u2588 \u2584\u2584\u2588  \u2588  \u2588 \u2580 \u2588 \u2588\u2584\u2584 \u2588\u2580\u2580                        |
+|                                                                             |
+|                                                                             |
+|                                                                             |
+|                                FastMCP 3.4.7                                |
+|                            https://gofastmcp.com                            |
+|                                                                             |
+|                 \U0001f5a5  Server:      MockWebSearch, 0.1.0                        |
+|                 \U0001f680 Deploy free: https://horizon.prefect.io                  |
+|                                                                             |
++-----------------------------------------------------------------------------+
+
+
+[08/31/26 10:19:35] INFO     Starting MCP server               transport.py:241
+                             'MockWebSearch' with transport                    
+                             'stdio'                                           
+
+
++-----------------------------------------------------------------------------+
+|                                                                             |
+|                                                                             |
+|                        \u2584\u2580\u2580 \u2584\u2580\u2588 \u2588\u2580\u2580 \u2580\u2588\u2580 \u2588\u2580\u2584\u2580\u2588 \u2588\u2580\u2580 \u2588\u2580\u2588                        |
+|                        \u2588\u2580  \u2588\u2580\u2588 \u2584\u2584\u2588  \u2588  \u2588 \u2580 \u2588 \u2588\u2584\u2584 \u2588\u2580\u2580                        |
+|                                                                             |
+|                                                                             |
+|                                                                             |
+|                                FastMCP 3.4.7                                |
+|                            https://gofastmcp.com                            |
+|                                                                             |
+|                 \U0001f5a5  Server:      MockNotes, 0.1.0                            |
+|                 \U0001f680 Deploy free: https://horizon.prefect.io                  |
+|                                                                             |
++-----------------------------------------------------------------------------+
+
+
+[08/31/26 10:19:37] INFO     Starting MCP server 'MockNotes'   transport.py:241
+                             with transport 'stdio'                            
+
+
++-----------------------------------------------------------------------------+
+|                                                                             |
+|                                                                             |
+|                        \u2584\u2580\u2580 \u2584\u2580\u2588 \u2588\u2580\u2580 \u2580\u2588\u2580 \u2588\u2580\u2584\u2580\u2588 \u2588\u2580\u2580 \u2588\u2580\u2588                        |
+|                        \u2588\u2580  \u2588\u2580\u2588 \u2584\u2584\u2588  \u2588  \u2588 \u2580 \u2588 \u2588\u2584\u2584 \u2588\u2580\u2580                        |
+|                                                                             |
+|                                                                             |
+|                                                                             |
+|                                FastMCP 3.4.7                                |
+|                            https://gofastmcp.com                            |
+|                                                                             |
+|                 \U0001f5a5  Server:      MockWebSearch, 0.1.0                        |
+|                 \U0001f680 Deploy free: https://horizon.prefect.io                  |
+|                                                                             |
++-----------------------------------------------------------------------------+
+
+
+[08/31/26 10:19:39] INFO     Starting MCP server               transport.py:241
+                             'MockWebSearch' with transport                    
+                             'stdio'                                           
+
+
++-----------------------------------------------------------------------------+
+|                                                                             |
+|                                                                             |
+|                        \u2584\u2580\u2580 \u2584\u2580\u2588 \u2588\u2580\u2580 \u2580\u2588\u2580 \u2588\u2580\u2584\u2580\u2588 \u2588\u2580\u2580 \u2588\u2580\u2588                        |
+|                        \u2588\u2580  \u2588\u2580\u2588 \u2584\u2584\u2588  \u2588  \u2588 \u2580 \u2588 \u2588\u2584\u2584 \u2588\u2580\u2580                        |
+|                                                                             |
+|                                                                             |
+|                                                                             |
+|                                FastMCP 3.4.7                                |
+|                            https://gofastmcp.com                            |
+|                                                                             |
+|                 \U0001f5a5  Server:      MockNotes, 0.1.0                            |
+|                 \U0001f680 Deploy free: https://horizon.prefect.io                  |
+|                                                                             |
++-----------------------------------------------------------------------------+
+
+
+[08/31/26 10:19:40] INFO     Starting MCP server 'MockNotes'   transport.py:241
+                             with transport 'stdio'                            
+
+
++-----------------------------------------------------------------------------+
+|                                                                             |
+|                                                                             |
+|                        \u2584\u2580\u2580 \u2584\u2580\u2588 \u2588\u2580\u2580 \u2580\u2588\u2580 \u2588\u2580\u2584\u2580\u2588 \u2588\u2580\u2580 \u2588\u2580\u2588                        |
+|                        \u2588\u2580  \u2588\u2580\u2588 \u2584\u2584\u2588  \u2588  \u2588 \u2580 \u2588 \u2588\u2584\u2584 \u2588\u2580\u2580                        |
+|                                                                             |
+|                                                                             |
+|                                                                             |
+|                                FastMCP 3.4.7                                |
+|                            https://gofastmcp.com                            |
+|                                                                             |
+|                 \U0001f5a5  Server:      MockDocument, 0.1.0                         |
+|                 \U0001f680 Deploy free: https://horizon.prefect.io                  |
+|                                                                             |
++-----------------------------------------------------------------------------+
+
+
+[08/31/26 10:19:42] INFO     Starting MCP server               transport.py:241
+                             'MockDocument' with transport                     
+                             'stdio'                                           
+
+
++-----------------------------------------------------------------------------+
+|                                                                             |
+|                                                                             |
+|                        \u2584\u2580\u2580 \u2584\u2580\u2588 \u2588\u2580\u2580 \u2580\u2588\u2580 \u2588\u2580\u2584\u2580\u2588 \u2588\u2580\u2580 \u2588\u2580\u2588                        |
+|                        \u2588\u2580  \u2588\u2580\u2588 \u2584\u2584\u2588  \u2588  \u2588 \u2580 \u2588 \u2588\u2584\u2584 \u2588\u2580\u2580                        |
+|                                                                             |
+|                                                                             |
+|                                                                             |
+|                                FastMCP 3.4.7                                |
+|                            https://gofastmcp.com                            |
+|                                                                             |
+|                 \U0001f5a5  Server:      MockDocument, 0.1.0                         |
+|                 \U0001f680 Deploy free: https://horizon.prefect.io                  |
+|                                                                             |
++-----------------------------------------------------------------------------+
+
+
+[08/31/26 10:19:44] INFO     Starting MCP server               transport.py:241
+                             'MockDocument' with transport                     
+                             'stdio'                                           
+
+
++-----------------------------------------------------------------------------+
+|                                                                             |
+|                                                                             |
+|                        \u2584\u2580\u2580 \u2584\u2580\u2588 \u2588\u2580\u2580 \u2580\u2588\u2580 \u2588\u2580\u2584\u2580\u2588 \u2588\u2580\u2580 \u2588\u2580\u2588                        |
+|                        \u2588\u2580  \u2588\u2580\u2588 \u2584\u2584\u2588  \u2588  \u2588 \u2580 \u2588 \u2588\u2584\u2584 \u2588\u2580\u2580                        |
+|                                                                             |
+|                                                                             |
+|                                                                             |
+|                                FastMCP 3.4.7                                |
+|                            https://gofastmcp.com                            |
+|                                                                             |
+|                 \U0001f5a5  Server:      MockDocument, 0.1.0                         |
+|                 \U0001f680 Deploy free: https://horizon.prefect.io                  |
+|                                                                             |
++-----------------------------------------------------------------------------+
+
+
+[08/31/26 10:19:46] INFO     Starting MCP server               transport.py:241
+                             'MockDocument' with transport                     
+                             'stdio'                                           
+
+
++-----------------------------------------------------------------------------+
+|                                                                             |
+|                                                                             |
+|                        \u2584\u2580\u2580 \u2584\u2580\u2588 \u2588\u2580\u2580 \u2580\u2588\u2580 \u2588\u2580\u2584\u2580\u2588 \u2588\u2580\u2580 \u2588\u2580\u2588                        |
+|                        \u2588\u2580  \u2588\u2580\u2588 \u2584\u2584\u2588  \u2588  \u2588 \u2580 \u2588 \u2588\u2584\u2584 \u2588\u2580\u2580                        |
+|                                                                             |
+|                                                                             |
+|                                                                             |
+|                                FastMCP 3.4.7                                |
+|                            https://gofastmcp.com                            |
+|                                                                             |
+|                 \U0001f5a5  Server:      MockDocument, 0.1.0                         |
+|                 \U0001f680 Deploy free: https://horizon.prefect.io                  |
+|                                                                             |
++-----------------------------------------------------------------------------+
+
+
+[08/31/26 10:19:48] INFO     Starting MCP server               transport.py:241
+                             'MockDocument' with transport                     
+                             'stdio'                                           
+
+
++-----------------------------------------------------------------------------+
+|                                                                             |
+|                                                                             |
+|                        \u2584\u2580\u2580 \u2584\u2580\u2588 \u2588\u2580\u2580 \u2580\u2588\u2580 \u2588\u2580\u2584\u2580\u2588 \u2588\u2580\u2580 \u2588\u2580\u2588                        |
+|                        \u2588\u2580  \u2588\u2580\u2588 \u2584\u2584\u2588  \u2588  \u2588 \u2580 \u2588 \u2588\u2584\u2584 \u2588\u2580\u2580                        |
+|                                                                             |
+|                                                                             |
+|                                                                             |
+|                                FastMCP 3.4.7                                |
+|                            https://gofastmcp.com                            |
+|                                                                             |
+|                 \U0001f5a5  Server:      MockDocument, 0.1.0                         |
+|                 \U0001f680 Deploy free: https://horizon.prefect.io                  |
+|                                                                             |
++-----------------------------------------------------------------------------+
+
+
+[08/31/26 10:19:49] INFO     Starting MCP server               transport.py:241
+                             'MockDocument' with transport                     
+                             'stdio'                                           
+
+
++-----------------------------------------------------------------------------+
+|                                                                             |
+|                                                                             |
+|                        \u2584\u2580\u2580 \u2584\u2580\u2588 \u2588\u2580\u2580 \u2580\u2588\u2580 \u2588\u2580\u2584\u2580\u2588 \u2588\u2580\u2580 \u2588\u2580\u2588                        |
+|                        \u2588\u2580  \u2588\u2580\u2588 \u2584\u2584\u2588  \u2588  \u2588 \u2580 \u2588 \u2588\u2584\u2584 \u2588\u2580\u2580                        |
+|                                                                             |
+|                                                                             |
+|                                                                             |
+|                                FastMCP 3.4.7                                |
+|                            https://gofastmcp.com                            |
+|                                                                             |
+|                 \U0001f5a5  Server:      MockDocument, 0.1.0                         |
+|                 \U0001f680 Deploy free: https://horizon.prefect.io                  |
+|                                                                             |
++-----------------------------------------------------------------------------+
+
+
+[08/31/26 10:19:51] INFO     Starting MCP server               transport.py:241
+                             'MockDocument' with transport                     
+                             'stdio'                                           
+
+$ sqlite3 demo/demo_ledger.db "UPDATE entries SET content_diff='fake human edit' WHERE seq=3;"
+Done tampering.
+
+$ uv run python main.py verify demo/demo_ledger.db demo/demo_keys/public_key.pem demo/demo_ledger.sig
++--------------------------------------------------------------------------+
+| ShowYourWork — MCP Proof of Process                                      |
+| Tamper-evident, cryptographically signed provenance for AI-assisted work |
++--------------------------------------------------------------------------+
+Loading ledger from: demo\demo_ledger.db
+  7 entries found.
+
+❌ Chain verification: Entry #3 has been tampered with: stored entry_hash '2c51a12d45ebc9a9…' ≠ computed 'f8c7448d1330e609…'.
+❌ Signature verification: ❌ Signature INVALID — the ledger may have been altered or signed with a different key.
+
+❌ FAIL — verification failed (see details above).
+
