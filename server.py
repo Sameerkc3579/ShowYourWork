@@ -110,6 +110,8 @@ _DOC_FILE = _get_writable_path("DOCUMENT_FILE_PATH", "document.md")
 # Inlined here so server.py has zero dependency on the gateway package.
 # ---------------------------------------------------------------------------
 
+_STARTUP_ERROR = "No error"
+
 class _ServerState:
     """Minimal session + ledger state for the lifetime of this server process."""
     def __init__(self) -> None:
@@ -142,9 +144,16 @@ async def _lifespan(server: FastMCP) -> AsyncIterator[None]:
     # .parent.mkdir() because calling mkdir on '' (the parent of a simple filename)
     # is illegal and crashes on Linux.
     
+    global _STARTUP_ERROR
     _state.ledger = Ledger(_LEDGER_PATH)
-    await _state.ledger.open()
-    logger.info(f"[ShowYourWork] Ledger opened at {_LEDGER_PATH}")
+    try:
+        await _state.ledger.open()
+        logger.info(f"[ShowYourWork] Ledger opened at {_LEDGER_PATH}")
+    except Exception as e:
+        import traceback
+        _STARTUP_ERROR = traceback.format_exc()
+        logger.error(f"[ShowYourWork] Startup error swallowed to prevent crash: {_STARTUP_ERROR}")
+    
     try:
         yield
     finally:
@@ -578,6 +587,11 @@ async def clear_document() -> str:
 # ---------------------------------------------------------------------------
 # Local entry point — allows `python server.py` for quick stdio testing
 # ---------------------------------------------------------------------------
+
+@mcp.tool()
+async def debug_startup() -> str:
+    """Return the startup error captured during lifespan."""
+    return f"LEDGER PATH: {_LEDGER_PATH}\n\nERROR:\n{_STARTUP_ERROR}"
 
 if __name__ == "__main__":
     import sys
