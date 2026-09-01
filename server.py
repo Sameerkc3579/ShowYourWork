@@ -137,10 +137,10 @@ _state = _ServerState()
 @asynccontextmanager
 async def _lifespan(server: FastMCP) -> AsyncIterator[None]:
     """Open the SQLite ledger on startup and close it cleanly on shutdown."""
-    # Ensure all configurable paths have existing parent directories (essential for Cloud deployments)
-    _LEDGER_PATH.parent.mkdir(parents=True, exist_ok=True)
-    _NOTES_FILE.parent.mkdir(parents=True, exist_ok=True)
-    _DOC_FILE.parent.mkdir(parents=True, exist_ok=True)
+    # The paths returned by _get_writable_path are guaranteed to be in an existing
+    # writable directory (either the current dir or /tmp). We no longer call
+    # .parent.mkdir() because calling mkdir on '' (the parent of a simple filename)
+    # is illegal and crashes on Linux.
     
     _state.ledger = Ledger(_LEDGER_PATH)
     await _state.ledger.open()
