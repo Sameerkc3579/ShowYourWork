@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "showyourwork": {
+      "command": "fastmcp",
+      "args": ["run", "server.py:mcp"]
+    }
+  }
+}

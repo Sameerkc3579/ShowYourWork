@@ -114,5 +114,7 @@ def load_config(config_path: Path | None = None) -> GatewayConfig:
         cfg.ledger_path = Path(lp)
     if kp := os.environ.get("GATEWAY_PRIVATE_KEY_PATH"):
         cfg.private_key_path = Path(kp)
+    if pk := os.environ.get("GATEWAY_PUBLIC_KEY_PATH"):
+        cfg.public_key_path = Path(pk)
 
     return cfg
