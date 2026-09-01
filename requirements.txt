@@ -1,0 +1,7 @@
+fastmcp
+mcp[cli]
+httpx
+cryptography
+diff-match-patch
+aiosqlite
+rich

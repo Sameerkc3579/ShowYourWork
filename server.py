@@ -51,19 +51,28 @@ import json
 import logging
 import os
 import re
+import sys
 import uuid
 from contextlib import asynccontextmanager
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, AsyncIterator
 
+# ---------------------------------------------------------------------------
+# Ensure repo root is on sys.path so local packages resolve whether the
+# cloud runner pip-installs the project or not. Must come before local imports.
+# ---------------------------------------------------------------------------
+_REPO_ROOT = Path(__file__).parent.resolve()
+if str(_REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(_REPO_ROOT))
+
 from fastmcp import FastMCP
 
 from proof_of_process.diff_engine import compute_diff
 from proof_of_process.ledger import Ledger
-from gateway.session_state import SessionState
 
 logger = logging.getLogger(__name__)
+
 
 # ---------------------------------------------------------------------------
 # Configurable paths — env vars with local-development defaults
@@ -79,11 +88,26 @@ _DOC_FILE = Path(os.environ.get("DOCUMENT_FILE_PATH", "document.md"))
 # Module-level state (in-process, per-server-instance)
 # ---------------------------------------------------------------------------
 
-# Ledger and session are initialised in the lifespan context below.
-# Using a simple namespace so the lifespan can mutate them without a global.
+# ---------------------------------------------------------------------------
+# Module-level state (in-process, per-server-instance)
+# Inlined here so server.py has zero dependency on the gateway package.
+# ---------------------------------------------------------------------------
+
 class _ServerState:
-    ledger: Ledger | None = None
-    session: SessionState = SessionState(session_id=str(uuid.uuid4()))
+    """Minimal session + ledger state for the lifetime of this server process."""
+    def __init__(self) -> None:
+        self.ledger: Ledger | None = None
+        self.session_id: str = str(uuid.uuid4())
+        self.call_count: int = 0
+        self.document_content: str = ""
+
+    def tick(self) -> None:
+        self.call_count += 1
+
+    def update_document(self, new_content: str) -> str:
+        old = self.document_content
+        self.document_content = new_content
+        return old
 
 
 _state = _ServerState()
@@ -138,20 +162,21 @@ async def _capture(
         logger.warning("[ShowYourWork] Ledger not open — skipping capture for %s", tool_name)
         return
 
-    _state.session.tick()
+    _state.tick()
     await _state.ledger.append(
         tool=tool_name,
         input_data=input_data,
         output_data=output_data,
-        session_id=_state.session.session_id,
+        session_id=_state.session_id,
         actor="agent",
         content_diff=content_diff,
     )
     logger.info(
-        "[ShowYourWork] call #%d captured: %s → ledger entry appended",
-        _state.session.call_count,
+        "[ShowYourWork] call #%d captured: %s -> ledger entry appended",
+        _state.call_count,
         tool_name,
     )
+
 
 
 # ===========================================================================
