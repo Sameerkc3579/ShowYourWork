@@ -78,11 +78,22 @@ logger = logging.getLogger(__name__)
 # Configurable paths — env vars with local-development defaults
 # ---------------------------------------------------------------------------
 
-_LEDGER_PATH = Path(os.environ.get("GATEWAY_LEDGER_PATH", "ledger.db"))
-_PRIVATE_KEY_PATH = Path(os.environ.get("GATEWAY_PRIVATE_KEY_PATH", "private_key.pem"))
-_PUBLIC_KEY_PATH = Path(os.environ.get("GATEWAY_PUBLIC_KEY_PATH", "public_key.pem"))
-_NOTES_FILE = Path(os.environ.get("NOTES_FILE_PATH", "notes.json"))
-_DOC_FILE = Path(os.environ.get("DOCUMENT_FILE_PATH", "document.md"))
+import tempfile
+
+def _get_writable_path(env_var: str, default_filename: str) -> Path:
+    val = os.environ.get(env_var)
+    if val:
+        return Path(val)
+    if os.access(".", os.W_OK):
+        return Path(default_filename)
+    return Path(tempfile.gettempdir()) / default_filename
+
+_LEDGER_PATH = _get_writable_path("GATEWAY_LEDGER_PATH", "ledger.db")
+_PRIVATE_KEY_PATH = _get_writable_path("GATEWAY_PRIVATE_KEY_PATH", "private_key.pem")
+_PUBLIC_KEY_PATH = _get_writable_path("GATEWAY_PUBLIC_KEY_PATH", "public_key.pem")
+_NOTES_FILE = _get_writable_path("NOTES_FILE_PATH", "notes.json")
+_DOC_FILE = _get_writable_path("DOCUMENT_FILE_PATH", "document.md")
+
 
 # ---------------------------------------------------------------------------
 # Module-level state (in-process, per-server-instance)
