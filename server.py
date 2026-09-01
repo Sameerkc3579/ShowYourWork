@@ -75,18 +75,24 @@ logger = logging.getLogger(__name__)
 
 
 # ---------------------------------------------------------------------------
-# Configurable paths — env vars with local-development defaults
-# ---------------------------------------------------------------------------
-
 import tempfile
+import uuid
 
 def _get_writable_path(env_var: str, default_filename: str) -> Path:
     val = os.environ.get(env_var)
     if val:
         return Path(val)
-    if os.access(".", os.W_OK):
-        return Path(default_filename)
-    return Path(tempfile.gettempdir()) / default_filename
+    
+    p = Path(default_filename)
+    try:
+        # Docker root user makes os.access(_, os.W_OK) return True even on read-only mounts.
+        # We must perform an actual write test to confirm writability.
+        test_file = p.parent / f".test_write_{uuid.uuid4().hex}"
+        test_file.touch()
+        test_file.unlink()
+        return p
+    except OSError:
+        return Path(tempfile.gettempdir()) / default_filename
 
 _LEDGER_PATH = _get_writable_path("GATEWAY_LEDGER_PATH", "ledger.db")
 _PRIVATE_KEY_PATH = _get_writable_path("GATEWAY_PRIVATE_KEY_PATH", "private_key.pem")
