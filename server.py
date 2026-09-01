@@ -92,7 +92,9 @@ def _get_writable_path(env_var: str, default_filename: str) -> Path:
         test_file.unlink()
         return p
     except OSError:
-        return Path(tempfile.gettempdir()) / default_filename
+        # If the container filesystem is entirely read-only (like FastMCP Cloud),
+        # we fallback to an in-memory database to allow SQLite to boot.
+        return Path(":memory:")
 
 _LEDGER_PATH = _get_writable_path("GATEWAY_LEDGER_PATH", "ledger.db")
 _PRIVATE_KEY_PATH = _get_writable_path("GATEWAY_PRIVATE_KEY_PATH", "private_key.pem")
@@ -319,16 +321,24 @@ async def web_search(query: str) -> str:
 # TOOL GROUP 2 — Notes  (replaces mock_servers/mock_notes.py)
 # ===========================================================================
 
+_IN_MEMORY_NOTES: list[dict] = []
+
 def _load_notes() -> list[dict]:
+    if str(_NOTES_FILE) == ":memory:":
+        return _IN_MEMORY_NOTES
     if _NOTES_FILE.exists():
         return json.loads(_NOTES_FILE.read_text(encoding="utf-8"))
     return []
 
 
 def _save_notes(notes: list[dict]) -> None:
-    _NOTES_FILE.write_text(
-        json.dumps(notes, indent=2, ensure_ascii=False), encoding="utf-8"
-    )
+    if str(_NOTES_FILE) == ":memory:":
+        global _IN_MEMORY_NOTES
+        _IN_MEMORY_NOTES = notes
+    else:
+        _NOTES_FILE.write_text(
+            json.dumps(notes, indent=2, ensure_ascii=False), encoding="utf-8"
+        )
 
 
 @mcp.tool()
@@ -438,14 +448,22 @@ async def delete_note(id: int) -> str:
 # TOOL GROUP 3 — Document Editing  (replaces mock_servers/mock_document.py)
 # ===========================================================================
 
+_IN_MEMORY_DOC = ""
+
 def _read_doc() -> str:
+    if str(_DOC_FILE) == ":memory:":
+        return _IN_MEMORY_DOC
     if _DOC_FILE.exists():
         return _DOC_FILE.read_text(encoding="utf-8")
     return ""
 
 
 def _write_doc(content: str) -> None:
-    _DOC_FILE.write_text(content, encoding="utf-8")
+    if str(_DOC_FILE) == ":memory:":
+        global _IN_MEMORY_DOC
+        _IN_MEMORY_DOC = content
+    else:
+        _DOC_FILE.write_text(content, encoding="utf-8")
 
 
 @mcp.tool()

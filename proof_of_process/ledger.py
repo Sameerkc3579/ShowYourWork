@@ -121,7 +121,8 @@ class Ledger:
     # --- lifecycle ---
 
     async def open(self) -> None:
-        self._db = await aiosqlite.connect(self.db_path)
+        path_str = str(self.db_path)
+        self._db = await aiosqlite.connect(path_str)
         self._db.row_factory = aiosqlite.Row
         await self._db.execute(_CREATE_TABLE_SQL)
         await self._db.commit()
