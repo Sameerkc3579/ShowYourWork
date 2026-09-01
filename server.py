@@ -120,6 +120,11 @@ _state = _ServerState()
 @asynccontextmanager
 async def _lifespan(server: FastMCP) -> AsyncIterator[None]:
     """Open the SQLite ledger on startup and close it cleanly on shutdown."""
+    # Ensure all configurable paths have existing parent directories (essential for Cloud deployments)
+    _LEDGER_PATH.parent.mkdir(parents=True, exist_ok=True)
+    _NOTES_FILE.parent.mkdir(parents=True, exist_ok=True)
+    _DOC_FILE.parent.mkdir(parents=True, exist_ok=True)
+    
     _state.ledger = Ledger(_LEDGER_PATH)
     await _state.ledger.open()
     logger.info(f"[ShowYourWork] Ledger opened at {_LEDGER_PATH}")
